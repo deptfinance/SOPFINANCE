@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOP / Alur Kerja Harian</title>
+  <style>
+    :root {
+      --navy: #12345b;
+      --blue: #246fa8;
+      --sky: #d9eef9;
+      --aqua: #2fb7b2;
+      --aqua-soft: #e7f8f7;
+      --white: #ffffff;
+      --orange: #f39a35;
+      --orange-soft: #fff0dd;
+      --ink: #163047;
+      --muted: #647589;
+      --line: #c7dceb;
+      --shadow: 0 18px 45px rgba(18, 52, 91, 0.14);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background:
+        linear-gradient(135deg, rgba(217, 238, 249, 0.95), rgba(231, 248, 247, 0.8) 42%, #ffffff 100%);
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 20px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--white);
+      background: linear-gradient(145deg, var(--navy), var(--aqua));
+      box-shadow: var(--shadow);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.12;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .tab-button {
+      min-height: 42px;
+      border: 1px solid rgba(18, 52, 91, 0.14);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--navy);
+      background: rgba(255, 255, 255, 0.72);
+      cursor: pointer;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
+    }
+
+    .tab-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(18, 52, 91, 0.12);
+    }
+
+    .tab-button.active {
+      border-color: var(--navy);
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    .poster {
+      overflow: hidden;
+      border: 1px solid rgba(18, 52, 91, 0.1);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .profile-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 22px;
+      padding: 26px;
+      color: var(--white);
+      background:
+        linear-gradient(130deg, rgba(18, 52, 91, 0.98), rgba(36, 111, 168, 0.95) 58%, rgba(47, 183, 178, 0.92));
+    }
+
+    .person-title {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .avatar-main {
+      display: grid;
+      width: 96px;
+      height: 96px;
+      flex: 0 0 96px;
+      place-items: center;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      font-size: 50px;
+    }
+
+    .avatar-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name-line {
+      margin: 0;
+      font-size: clamp(28px, 4.5vw, 52px);
+      line-height: 1;
+    }
+
+    .title-line {
+      margin: 8px 0 0;
+      color: rgba(255, 255, 255, 0.88);
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.35;
+    }
+
+    .focus-box {
+      display: grid;
+      align-content: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .focus-label {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .focus-text {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      padding: 26px;
+      background: linear-gradient(180deg, #ffffff, #f7fbfd);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline::before {
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      left: 31px;
+      width: 3px;
+      content: "";
+      background: linear-gradient(180deg, var(--aqua), var(--blue));
+      border-radius: 999px;
+    }
+
+    .activity-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .activity-marker {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-content: start;
+      justify-items: center;
+      gap: 6px;
+    }
+
+    .step-number,
+    .break-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--blue);
+      box-shadow: 0 9px 18px rgba(18, 52, 91, 0.16);
+      font-weight: 800;
+    }
+
+    .break-icon {
+      background: var(--orange);
+      font-size: 21px;
+    }
+
+    .time-chip {
+      width: 64px;
+      border-radius: 999px;
+      padding: 4px 6px;
+      color: var(--navy);
+      background: var(--sky);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .activity-body {
+      border: 1px solid rgba(18, 52, 91, 0.1);
+      border-left: 5px solid var(--aqua);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: var(--white);
+      box-shadow: 0 10px 24px rgba(18, 52, 91, 0.08);
+    }
+
+    .activity-card.break .activity-body {
+      border-left-color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .activity-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .mini-avatar {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      place-items: center;
+      border-radius: 8px;
+      color: var(--navy);
+      background: var(--aqua-soft);
+      font-size: 22px;
+    }
+
+    .activity-card.break .mini-avatar {
+      background: #ffe1bb;
+    }
+
+    .period {
+      margin-left: auto;
+      border-radius: 999px;
+      padding: 5px 9px;
+      color: var(--white);
+      background: var(--navy);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .activity-card.break .period {
+      background: var(--orange);
+    }
+
+    .bilingual {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .lang-block {
+      min-width: 0;
+    }
+
+    .lang-tag {
+      display: inline-flex;
+      margin-bottom: 7px;
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: var(--blue);
+      background: var(--sky);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .lang-block h3 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 17px;
+      line-height: 1.32;
+    }
+
+    .lang-block p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .output-panel {
+      align-self: start;
+      border: 1px solid rgba(18, 52, 91, 0.1);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(18, 52, 91, 0.09);
+    }
+
+    .output-header {
+      padding: 18px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+    }
+
+    .output-header h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .output-header p {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 13px;
+    }
+
+    .output-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 16px;
+      list-style: none;
+    }
+
+    .output-list li {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid rgba(47, 183, 178, 0.18);
+      border-radius: var(--radius);
+      padding: 11px;
+      background: var(--aqua-soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .check {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--aqua);
+      font-weight: 800;
+    }
+
+    .placeholder-note {
+      margin: 0;
+      border-top: 1px solid rgba(18, 52, 91, 0.1);
+      padding: 14px 18px 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 18px;
+      border-radius: 8px;
+      padding: 16px;
+      color: var(--white);
+      background: var(--navy);
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .topbar,
+      .profile-hero,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        display: grid;
+      }
+
+      .tabs {
+        justify-content: flex-start;
+      }
+
+      .content-grid {
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 14px;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        font-size: 21px;
+      }
+
+      .tab-button {
+        flex: 1 1 calc(50% - 8px);
+        padding-inline: 10px;
+      }
+
+      .profile-hero,
+      .content-grid {
+        padding: 16px;
+      }
+
+      .person-title {
+        align-items: flex-start;
+      }
+
+      .avatar-main {
+        width: 74px;
+        height: 74px;
+        flex-basis: 74px;
+        font-size: 38px;
+      }
+
+      .section-head {
+        display: grid;
+      }
+
+      .section-head span {
+        text-align: left;
+      }
+
+      .timeline::before {
+        left: 23px;
+      }
+
+      .activity-card {
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .step-number,
+      .break-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .time-chip {
+        width: 48px;
+        font-size: 10px;
+      }
+
+      .activity-heading {
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .period {
+        margin-left: 0;
+      }
+
+      .bilingual {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">S</div>
+        <div>
+          <h1>SOP / Alur Kerja Harian</h1>
+          <p>Poster visual bilingual untuk aktivitas harian per profile</p>
+        </div>
+      </div>
+      <nav class="tabs" aria-label="Pilih profile SOP" id="profileTabs"></nav>
+    </header>
+
+    <section class="poster" id="profilePoster" aria-live="polite"></section>
+
+    <footer>
+      Disiplin waktu, data akurat, hasil kerja berkualitas. ｜ 守時自律、資料準確、工作成果有品質。
+    </footer>
+  </main>
+
+  <script>
+    const profiles = [
+      {
+        id: "dhea",
+        displayName: "迪雅 / DHEA",
+        shortName: "DHEA",
+        title: "SOP / Alur Kerja Harian DHEA",
+        focusId: "Koordinasi, pengecekan data, input sistem, dan final check laporan",
+        focusZh: "溝通協調、資料檢查、系統輸入與報表最終確認",
+        avatar: {
+          type: "image",
+          value: "👩‍💼",
+          image: "assets/avatar-dhea.png"
+        },
+        activities: [
+          {
+            time: "08.00–08.30",
+            period: "Pagi ｜ 上午",
+            icon: "💬",
+            idTitle: "Briefing dan pengecekan chat WhatsApp dan LINE",
+            idDescription: "Koordinasi awal kerja dan pengecekan komunikasi masuk.",
+            zhTitle: "晨會並檢查 WhatsApp 與 LINE 訊息",
+            zhDescription: "進行工作前協調，並確認收到的通訊訊息。"
+          },
+          {
+            time: "08.30–09.00",
+            period: "Pagi ｜ 上午",
+            icon: "🧾",
+            idTitle: "Mengecek pengajuan pembelian dan reimbursement",
+            idDescription: "Verifikasi pengajuan pembelian dan klaim reimbursement.",
+            zhTitle: "檢查採購申請與報銷",
+            zhDescription: "核對採購申請及報銷請款內容。"
+          },
+          {
+            time: "09.00–10.00",
+            period: "Pagi ｜ 上午",
+            icon: "🔎",
+            idTitle: "Mengecek 2Loan dan input data rupiah",
+            idDescription: "Pemeriksaan data 2Loan dan input nominal rupiah.",
+            zhTitle: "檢查 2Loan 並輸入印尼盾資料",
+            zhDescription: "檢查 2Loan 資料，並輸入印尼盾金額。"
+          },
+          {
+            time: "10.00–11.00",
+            period: "Pagi ｜ 上午",
+            icon: "📥",
+            idTitle: "Pengecekan dan input pencairan 3Loan tahap 1",
+            idDescription: "Cek proses pencairan 3Loan tahap pertama dan input data terkait.",
+            zhTitle: "檢查並輸入 3Loan 第一階段撥款資料",
+            zhDescription: "確認 3Loan 第一階段撥款流程，並輸入相關資料。"
+          },
+          {
+            time: "12.00–13.00",
+            period: "Istirahat ｜ 休息",
+            icon: "☕",
+            isBreak: true,
+            idTitle: "Istirahat",
+            idDescription: "Waktu jeda siang sebelum aktivitas berikutnya.",
+            zhTitle: "休息",
+            zhDescription: "午間休息，準備下午工作。"
+          },
+          {
+            time: "13.00–15.45",
+            period: "Siang ｜ 下午",
+            icon: "📥",
+            idTitle: "Pengecekan dan input pencairan 3Loan tahap 2",
+            idDescription: "Melanjutkan pengecekan dan input pencairan 3Loan tahap kedua.",
+            zhTitle: "檢查並輸入 3Loan 第二階段撥款資料",
+            zhDescription: "持續檢查並輸入 3Loan 第二階段撥款資料。"
+          },
+          {
+            time: "15.45–16.00",
+            period: "Siang ｜ 下午",
+            icon: "🖥️",
+            idTitle: "Input data 3Loan ke sistem",
+            idDescription: "Memasukkan data 3Loan ke dalam sistem.",
+            zhTitle: "將 3Loan 資料輸入系統",
+            zhDescription: "把 3Loan 資料正式輸入系統。"
+          },
+          {
+            time: "16.00–17.00",
+            period: "Sore ｜ 傍晚",
+            icon: "✅",
+            idTitle: "Merapikan dan mengecek laporan",
+            idDescription: "Rapikan data dan lakukan pemeriksaan akhir laporan.",
+            zhTitle: "整理並檢查報表",
+            zhDescription: "整理資料並完成報表最終檢查。"
+          }
+        ],
+        outputs: [
+          "Komunikasi awal selesai ｜ 初步溝通完成",
+          "Pengajuan & data terverifikasi ｜ 申請與資料已核對",
+          "Data 2Loan & 3Loan terinput ｜ 2Loan 與 3Loan 資料已輸入",
+          "Laporan akhir dicek ｜ 最終報表已檢查"
+        ]
+      },
+      {
+        id: "delia",
+        displayName: "佩莉 / DELIA",
+        shortName: "DELIA",
+        title: "SOP / Alur Kerja Harian DELIA",
+        focusId: "Pengecekan ARC dan 2Loan, input data IY/rupiah, proses pencairan 3Loan, bukti pencairan, dan final check laporan",
+        focusZh: "檢查 ARC 與 2Loan 資料、輸入 IY 與印尼盾資料、處理 3Loan 撥款證明並完成最終報表檢查",
+        avatar: {
+          type: "image",
+          value: "👩‍💼",
+          image: "assets/avatar-delia.png"
+        },
+        activities: [
+          {
+            time: "08.00–08.30",
+            period: "Pagi ｜ 上午",
+            icon: "💬",
+            idTitle: "Briefing serta pengecekan WhatsApp dan LINE",
+            idDescription: "Koordinasi awal kerja dan pemeriksaan pesan masuk.",
+            zhTitle: "晨會並檢查 WhatsApp 與 LINE 訊息",
+            zhDescription: "進行工作前協調並確認收到的通訊訊息。"
+          },
+          {
+            time: "08.30–09.30",
+            period: "Pagi ｜ 上午",
+            icon: "📋",
+            idTitle: "Mengecek ARC",
+            idDescription: "Pemeriksaan data ARC.",
+            zhTitle: "檢查 ARC",
+            zhDescription: "檢查 ARC 資料。"
+          },
+          {
+            time: "09.30–10.00",
+            period: "Pagi ｜ 上午",
+            icon: "🗄️",
+            idTitle: "Mengecek data 2Loan",
+            idDescription: "Verifikasi data 2Loan.",
+            zhTitle: "檢查 2Loan 資料",
+            zhDescription: "核對 2Loan 資料。"
+          },
+          {
+            time: "10.00–11.00",
+            period: "Pagi ｜ 上午",
+            icon: "🖥️",
+            idTitle: "Input data sistem IY dan input data rupiah",
+            idDescription: "Memasukkan data ke sistem IY dan mencatat data rupiah.",
+            zhTitle: "輸入 IY 系統資料並輸入印尼盾資料",
+            zhDescription: "將資料輸入 IY 系統並登記印尼盾資料。"
+          },
+          {
+            time: "11.00–12.00",
+            period: "Pagi ｜ 上午",
+            icon: "💰",
+            idTitle: "Pengecekan dan input pencairan 3Loan tahap 1",
+            idDescription: "Cek proses pencairan 3Loan tahap pertama dan input data terkait.",
+            zhTitle: "檢查並輸入 3Loan 第一階段撥款資料",
+            zhDescription: "確認 3Loan 第一階段撥款流程並輸入相關資料。"
+          },
+          {
+            time: "12.00–13.00",
+            period: "Istirahat ｜ 休息",
+            icon: "☕",
+            isBreak: true,
+            idTitle: "Istirahat",
+            idDescription: "Waktu jeda siang sebelum melanjutkan proses berikutnya.",
+            zhTitle: "休息",
+            zhDescription: "午間休息，準備下午工作。"
+          },
+          {
+            time: "13.00–15.45",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "💰",
+            idTitle: "Pengecekan dan input pencairan 3Loan tahap 2",
+            idDescription: "Melanjutkan pemeriksaan dan input pencairan 3Loan tahap kedua.",
+            zhTitle: "檢查並輸入 3Loan 第二階段撥款資料",
+            zhDescription: "持續檢查並輸入 3Loan 第二階段撥款資料。"
+          },
+          {
+            time: "15.45–16.00",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "✈️",
+            idTitle: "Mengambil bukti pencairan, lalu mengirimkannya ke bagian akuntansi dan email bagian akad",
+            idDescription: "Kirim bukti pencairan ke akuntansi dan bagian akad.",
+            zhTitle: "領取撥款證明，並寄送至會計部及以電子郵件寄給合約部門",
+            zhDescription: "將撥款證明寄送給會計部與合約部門。"
+          },
+          {
+            time: "16.00–17.00",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "✅",
+            idTitle: "Merapikan dan mengecek laporan",
+            idDescription: "Rapikan data dan lakukan pemeriksaan akhir laporan.",
+            zhTitle: "整理並檢查報表",
+            zhDescription: "整理資料並完成最終報表檢查。"
+          }
+        ],
+        outputs: [
+          "Komunikasi awal selesai ｜ 初步溝通完成",
+          "ARC & data 2Loan dicek ｜ ARC 與 2Loan 資料已檢查",
+          "Data IY, rupiah, dan 3Loan terinput ｜ IY、印尼盾與 3Loan 資料已輸入",
+          "Bukti pencairan & laporan selesai dicek ｜ 撥款證明與最終報表已檢查"
+        ]
+      },
+      {
+        id: "adelia",
+        displayName: "雅安 / ADELIA",
+        shortName: "ADELIA",
+        title: "SOP / Alur Kerja Harian ADELIA",
+        focusId: "Koordinasi, informasi pembayaran, input data, proses pencairan, pembaruan data, dan cek laporan",
+        focusZh: "聚焦於協調、付款資訊通知與資料輸入、處理撥款、更新資料並檢查報表",
+        avatar: {
+          type: "image",
+          value: "👩‍💼",
+          image: "assets/avatar-adelia.png"
+        },
+        activities: [
+          {
+            time: "08.00–08.30",
+            period: "Pagi ｜ 早上",
+            icon: "💬",
+            idTitle: "Briefing serta pengecekan WhatsApp dan LINE",
+            idDescription: "Koordinasi awal kerja dan pemeriksaan pesan masuk.",
+            zhTitle: "晨會並檢查 WhatsApp 與 LINE 訊息",
+            zhDescription: "進行工作前協調並確認收到的通訊訊息。"
+          },
+          {
+            time: "08.15–08.20",
+            period: "Pagi ｜ 早上",
+            icon: "🔔",
+            idTitle: "Menginformasikan pembayaran rupiah yang masuk pada pagi hari",
+            idDescription: "Menyampaikan informasi pembayaran rupiah yang diterima pada pagi hari.",
+            zhTitle: "通知早上入帳的印尼盾款項",
+            zhDescription: "通知早上收到的印尼盾付款資訊。"
+          },
+          {
+            time: "08.20–10.00",
+            period: "Pagi ｜ 早上",
+            icon: "🔎",
+            idTitle: "Mengecek dan menginput pencairan 2Loan",
+            idDescription: "Pemeriksaan dan input data pencairan 2Loan.",
+            zhTitle: "檢查並輸入 2Loan 撥款資料",
+            zhDescription: "檢查並輸入 2Loan 的撥款資料。"
+          },
+          {
+            time: "10.00–11.30",
+            period: "Pagi ｜ 早上",
+            icon: "🗄️",
+            idTitle: "Input data rupiah",
+            idDescription: "Memasukkan data rupiah ke sistem kerja.",
+            zhTitle: "輸入印尼盾資料",
+            zhDescription: "將印尼盾相關資料輸入系統。"
+          },
+          {
+            time: "11.30–12.00",
+            period: "Pagi ｜ 早上",
+            icon: "🖥️",
+            idTitle: "Input data pencairan 2Loan ke sistem dan mengambil bukti pencairan",
+            idDescription: "Menginput data pencairan 2Loan ke sistem dan mengambil bukti pencairan.",
+            zhTitle: "將 2Loan 撥款資料輸入系統並領取撥款證明",
+            zhDescription: "將 2Loan 撥款資料登錄至系統，並取得撥款證明。"
+          },
+          {
+            time: "12.00–13.00",
+            period: "Istirahat ｜ 休息",
+            icon: "🍽️",
+            isBreak: true,
+            idTitle: "Istirahat",
+            idDescription: "Waktu jeda siang sebelum melanjutkan proses berikutnya.",
+            zhTitle: "休息",
+            zhDescription: "午間休息，準備下午工作。"
+          },
+          {
+            time: "13.00–15.45",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "💵",
+            idTitle: "Menginformasikan pembayaran rupiah yang masuk pada siang hari, mengecek pencairan 3Loan, dan input data rupiah",
+            idDescription: "Menyampaikan informasi pembayaran rupiah siang hari, mengecek pencairan 3Loan, dan input data rupiah.",
+            zhTitle: "通知下午入帳的印尼盾款項、檢查 3Loan 撥款，並輸入印尼盾資料",
+            zhDescription: "通知下午收到的印尼盾付款資訊，檢查 3Loan 撥款，並輸入印尼盾資料。"
+          },
+          {
+            time: "15.45–17.00",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "📋",
+            idTitle: "Merapikan dan mengecek laporan",
+            idDescription: "Merapikan data dan melakukan pengecekan laporan akhir.",
+            zhTitle: "整理並檢查報表",
+            zhDescription: "整理資料並完成最終報表檢查。"
+          }
+        ],
+        outputs: [
+          "Koordinasi & info pembayaran selesai ｜ 協調與付款資訊已完成",
+          "Data 2Loan terinput ｜ 2Loan 資料已輸入",
+          "Rupiah & sistem terupdate ｜ 印尼盾與系統資料已更新",
+          "Laporan akhir dicek ｜ 最終報表已檢查"
+        ]
+      },
+      {
+        id: "erika",
+        displayName: "艾麗卡 / ERIKA",
+        shortName: "ERIKA",
+        title: "SOP / Alur Kerja Harian ERIKA",
+        focusId: "Pelaporan, pembaruan progress, input data, penagihan, follow up, dan pengecekan akhir",
+        focusZh: "專注於報表傳送、進度更新與資料輸入、催收資料發送與最終檢查",
+        avatar: {
+          type: "image",
+          value: "👩‍💼",
+          image: "assets/avatar-erika.png"
+        },
+        activities: [
+          {
+            time: "08.00–08.20",
+            period: "Pagi ｜ 早上",
+            icon: "✉️",
+            idTitle: "Kirim laporan ke accounting Taiwan",
+            idDescription: "Mengirim laporan harian ke tim accounting Taiwan.",
+            zhTitle: "將報告發送至台灣會計部",
+            zhDescription: "將每日報告發送給台灣會計部。"
+          },
+          {
+            time: "08.20–08.35",
+            period: "Pagi ｜ 早上",
+            icon: "💵",
+            idTitle: "Buat format rupiah",
+            idDescription: "Menyiapkan format laporan dalam mata uang rupiah.",
+            zhTitle: "製作印尼盾格式",
+            zhDescription: "整理並製作以印尼盾為單位的報表格式。"
+          },
+          {
+            time: "08.35–10.00",
+            period: "Pagi ｜ 早上",
+            icon: "💬",
+            idTitle: "Update laporan progress, cek WA, dan follow up pihak eksternal",
+            idDescription: "Memperbarui progress pekerjaan, memeriksa komunikasi, dan menindaklanjuti pihak eksternal.",
+            zhTitle: "更新進度報告、查看 WA、並追蹤外部單位",
+            zhDescription: "更新工作進度、查看通訊訊息，並跟進外部單位。"
+          },
+          {
+            time: "10.00–12.00",
+            period: "Pagi ｜ 早上",
+            icon: "🗂️",
+            idTitle: "Input data rupiah masuk dan 2Loan, cek laporan berkas",
+            idDescription: "Input data pemasukan rupiah dan 2Loan, serta memeriksa laporan berkas.",
+            zhTitle: "輸入印尼盾入帳資料與 2Loan，並檢查報表文件",
+            zhDescription: "輸入印尼盾入帳及 2Loan 資料，並檢查相關報表文件。"
+          },
+          {
+            time: "12.00–13.00",
+            period: "Istirahat ｜ 休息",
+            icon: "🍽️",
+            isBreak: true,
+            idTitle: "Istirahat",
+            idDescription: "Waktu jeda siang sebelum melanjutkan input dan pengecekan akhir.",
+            zhTitle: "休息",
+            zhDescription: "午間休息，準備下午工作。"
+          },
+          {
+            time: "13.00–16.15",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "📨",
+            idTitle: "Input data 3Loan, kirim data penagihan, follow up laporan",
+            idDescription: "Memasukkan data 3Loan, mengirim data penagihan, dan menindaklanjuti laporan.",
+            zhTitle: "輸入 3Loan 資料、發送催收資料、並追蹤報表",
+            zhDescription: "輸入 3Loan 資料，發送催收資料，並持續追蹤報表進度。"
+          },
+          {
+            time: "16.15–16.45",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "✅",
+            idTitle: "Cek laporan ulang",
+            idDescription: "Melakukan pengecekan ulang untuk memastikan laporan akurat.",
+            zhTitle: "再次檢查報表",
+            zhDescription: "再次確認報表內容正確無誤。"
+          }
+        ],
+        outputs: [
+          "Laporan terkirim ｜ 報表已發送",
+          "Data terinput ｜ 資料已輸入",
+          "Follow up berjalan ｜ 追蹤進行中",
+          "Laporan akhir dicek ｜ 最終報表已檢查"
+        ]
+      }
+    ];
+
+    const tabsEl = document.querySelector("#profileTabs");
+    const posterEl = document.querySelector("#profilePoster");
+
+    function createPlaceholderProfile({ id, displayName, shortName, image }) {
+      return {
+        id,
+        displayName,
+        shortName,
+        title: `SOP / Alur Kerja Harian ${shortName}`,
+        focusId: "Fokus pekerjaan akan diisi nanti",
+        focusZh: "工作重點待補充",
+        isPlaceholder: true,
+        avatar: {
+          type: "emoji",
+          value: "👤",
+          image
+        },
+        activities: [
+          createEmptyActivity("08.00–09.00", "Pagi ｜ 上午", 1),
+          createEmptyActivity("09.00–10.00", "Pagi ｜ 上午", 2),
+          createEmptyActivity("10.00–11.00", "Pagi ｜ 上午", 3),
+          {
+            time: "12.00–13.00",
+            period: "Istirahat ｜ 休息",
+            icon: "☕",
+            isBreak: true,
+            idTitle: "Istirahat",
+            idDescription: "Isi detail istirahat bila diperlukan.",
+            zhTitle: "休息",
+            zhDescription: "如有需要可補充休息說明。"
+          },
+          createEmptyActivity("13.00–15.00", "Siang ｜ 下午", 4),
+          createEmptyActivity("15.00–16.00", "Siang ｜ 下午", 5),
+          createEmptyActivity("16.00–17.00", "Sore ｜ 傍晚", 6)
+        ],
+        outputs: [
+          "Output harian 1 ｜ 每日成果 1",
+          "Output harian 2 ｜ 每日成果 2",
+          "Output harian 3 ｜ 每日成果 3",
+          "Output harian 4 ｜ 每日成果 4"
+        ]
+      };
+    }
+
+    function createEmptyActivity(time, period, number) {
+      return {
+        time,
+        period,
+        icon: "📌",
+        idTitle: `Kegiatan ${number}`,
+        idDescription: "Deskripsi kegiatan akan diisi nanti.",
+        zhTitle: `工作項目 ${number}`,
+        zhDescription: "工作內容待補充。"
+      };
+    }
+
+    function renderTabs(activeId) {
+      tabsEl.innerHTML = profiles.map((profile) => `
+        <button
+          class="tab-button ${profile.id === activeId ? "active" : ""}"
+          type="button"
+          data-profile-id="${profile.id}"
+          aria-selected="${profile.id === activeId}"
+        >
+          ${profile.displayName}
+        </button>
+      `).join("");
+    }
+
+    function renderProfile(profile) {
+      const activities = profile.activities.map((activity, index) => {
+        const stepNumber = activity.isBreak ? "" : index + 1 - countBreaksBefore(profile.activities, index);
+        return `
+          <article class="activity-card ${activity.isBreak ? "break" : ""}">
+            <div class="activity-marker">
+              <div class="${activity.isBreak ? "break-icon" : "step-number"}">${activity.isBreak ? activity.icon : stepNumber}</div>
+              <div class="time-chip">${activity.time}</div>
+            </div>
+            <div class="activity-body">
+              <div class="activity-heading">
+                <div class="mini-avatar" aria-hidden="true">${activity.icon}</div>
+                <span class="period">${activity.period}</span>
+              </div>
+              <div class="bilingual">
+                <div class="lang-block">
+                  <span class="lang-tag">Indonesia</span>
+                  <h3>${activity.idTitle}</h3>
+                  <p>${activity.idDescription}</p>
+                </div>
+                <div class="lang-block" lang="zh-Hant">
+                  <span class="lang-tag">繁體中文</span>
+                  <h3>${activity.zhTitle}</h3>
+                  <p>${activity.zhDescription}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      posterEl.innerHTML = `
+        <div class="profile-hero">
+          <div class="person-title">
+            <div class="avatar-main" aria-label="Avatar ${profile.shortName}">
+              ${renderAvatar(profile)}
+            </div>
+            <div>
+              <h2 class="name-line">${profile.displayName}</h2>
+              <p class="title-line">${profile.title}</p>
+            </div>
+          </div>
+          <aside class="focus-box">
+            <span class="focus-label">Fokus pekerjaan ｜ 工作重點</span>
+            <p class="focus-text">${profile.focusId}</p>
+            <p class="focus-text" lang="zh-Hant">${profile.focusZh}</p>
+          </aside>
+        </div>
+
+        <div class="content-grid">
+          <section>
+            <div class="section-head">
+              <h2>Jadwal Kegiatan Harian</h2>
+              <span>Morning to afternoon workflow ｜ 每日工作流程</span>
+            </div>
+            <div class="timeline">${activities}</div>
+          </section>
+
+          <aside class="output-panel">
+            <div class="output-header">
+              <h2>Output Harian</h2>
+              <p>Ringkasan hasil yang perlu selesai setiap hari</p>
+            </div>
+            <ol class="output-list">
+              ${profile.outputs.map((output) => `
+                <li>
+                  <span class="check">✓</span>
+                  <span>${output}</span>
+                </li>
+              `).join("")}
+            </ol>
+            ${profile.isPlaceholder ? `
+              <p class="placeholder-note">
+                Template ini siap diisi dengan nama jabatan, jadwal, deskripsi bilingual, avatar, dan output harian.
+              </p>
+            ` : ""}
+          </aside>
+        </div>
+      `;
+    }
+
+    function renderAvatar(profile) {
+      if (profile.avatar.type === "image") {
+        return `<img src="${profile.avatar.image}" alt="${profile.displayName}">`;
+      }
+      return `<span aria-hidden="true">${profile.avatar.value}</span>`;
+    }
+
+    function countBreaksBefore(activities, index) {
+      return activities.slice(0, index).filter((activity) => activity.isBreak).length;
+    }
+
+    function setActiveProfile(profileId) {
+      const profile = profiles.find((item) => item.id === profileId) || profiles[0];
+      renderTabs(profile.id);
+      renderProfile(profile);
+    }
+
+    tabsEl.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-profile-id]");
+      if (!button) return;
+      setActiveProfile(button.dataset.profileId);
+    });
+
+    setActiveProfile(profiles[0].id);
+  </script>
+</body>
+</html>
