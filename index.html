@@ -587,8 +587,8 @@
         displayName: "迪雅 / DHEA",
         shortName: "DHEA",
         title: "SOP / Alur Kerja Harian DHEA",
-        focusId: "Koordinasi, pengecekan data, input sistem, dan final check laporan",
-        focusZh: "溝通協調、資料檢查、系統輸入與報表最終確認",
+        focusId: "Koordinasi, pengecekan, input data, pencairan KTA, penyelesaian laporan, dan saldo akhir",
+        focusZh: "專注於前期溝通、檢查與資料輸入、持續處理撥款、系統輸入與報表整理",
         avatar: {
           type: "image",
           value: "👩‍💼",
@@ -602,7 +602,7 @@
             idTitle: "Briefing dan pengecekan chat WhatsApp dan LINE",
             idDescription: "Koordinasi awal kerja dan pengecekan komunikasi masuk.",
             zhTitle: "晨會並檢查 WhatsApp 與 LINE 訊息",
-            zhDescription: "進行工作前協調，並確認收到的通訊訊息。"
+            zhDescription: "進行工作前協調並確認收到的通訊訊息。"
           },
           {
             time: "08.30–09.00",
@@ -614,22 +614,31 @@
             zhDescription: "核對採購申請及報銷請款內容。"
           },
           {
-            time: "09.00–10.00",
+            time: "09.00–09.30",
             period: "Pagi ｜ 上午",
-            icon: "🔎",
-            idTitle: "Mengecek 2Loan dan input data rupiah",
-            idDescription: "Pemeriksaan data 2Loan dan input nominal rupiah.",
-            zhTitle: "檢查 安家費 並輸入印尼盾資料",
-            zhDescription: "檢查 安家費 資料，並輸入印尼盾金額。"
+            icon: "📁",
+            idTitle: "Mengecek berkas pencairan 安家費",
+            idDescription: "Pemeriksaan berkas pencairan 安家費 dan input data rupiah.",
+            zhTitle: "檢查安家費撥款資料",
+            zhDescription: "檢查安家費撥款文件，並輸入印尼盾資料。"
           },
           {
-            time: "10.00–11.00",
+            time: "09.30–10.30",
             period: "Pagi ｜ 上午",
-            icon: "📥",
-            idTitle: "Pengecekan dan input pencairan 3Loan tahap 1",
-            idDescription: "Cek proses pencairan 3Loan tahap pertama dan input data terkait.",
+            icon: "💵",
+            idTitle: "Input data pembayaran rupiah",
+            idDescription: "Memasukkan data pembayaran rupiah ke sistem kerja.",
+            zhTitle: "輸入印尼盾付款資料",
+            zhDescription: "將印尼盾付款相關資料輸入系統。"
+          },
+          {
+            time: "10.30–12.00",
+            period: "Pagi ｜ 上午",
+            icon: "📄",
+            idTitle: "Pengecekan dan input pencairan KTA tahap 1",
+            idDescription: "Melakukan verifikasi dan input pencairan KTA tahap pertama.",
             zhTitle: "檢查並輸入 KTA 第一階段撥款資料",
-            zhDescription: "確認 KTA 第一階段撥款流程，並輸入相關資料。"
+            zhDescription: "進行 KTA 第一階段撥款的核對與資料輸入。"
           },
           {
             time: "12.00–13.00",
@@ -637,43 +646,52 @@
             icon: "☕",
             isBreak: true,
             idTitle: "Istirahat",
-            idDescription: "Waktu jeda siang sebelum aktivitas berikutnya.",
+            idDescription: "Waktu jeda siang sebelum melanjutkan proses berikutnya.",
             zhTitle: "休息",
             zhDescription: "午間休息，準備下午工作。"
           },
           {
             time: "13.00–15.45",
-            period: "Siang ｜ 下午",
-            icon: "📥",
-            idTitle: "Pengecekan dan input pencairan 3Loan tahap 2",
-            idDescription: "Melanjutkan pengecekan dan input pencairan 3Loan tahap kedua.",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "📄",
+            idTitle: "Pengecekan dan input pencairan KTA tahap 2",
+            idDescription: "Melanjutkan pemeriksaan dan input pencairan KTA tahap kedua.",
             zhTitle: "檢查並輸入 KTA 第二階段撥款資料",
-            zhDescription: "持續檢查並輸入 KTA 第二階段撥款資料。"
+            zhDescription: "持續進行 KTA 第二階段撥款的核對與資料輸入。"
           },
           {
             time: "15.45–16.00",
-            period: "Siang ｜ 下午",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
             icon: "🖥️",
-            idTitle: "Input data 3Loan ke sistem",
-            idDescription: "Memasukkan data 3Loan ke dalam sistem.",
-            zhTitle: "將 KTA 資料輸入系統",
-            zhDescription: "把 KTA 資料正式輸入系統。"
+            idTitle: "Input data 4 loan KTA ke sistem",
+            idDescription: "Memasukkan data 4 loan KTA ke dalam sistem.",
+            zhTitle: "將 4 loan KTA 資料輸入系統",
+            zhDescription: "把 4 loan KTA 資料正式輸入系統。"
           },
           {
-            time: "16.00–17.00",
-            period: "Sore ｜ 傍晚",
-            icon: "✅",
+            time: "16.00–16.30",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "📊",
             idTitle: "Merapikan dan mengecek laporan",
-            idDescription: "Rapikan data dan lakukan pemeriksaan akhir laporan.",
+            idDescription: "Merapikan data dan melakukan pemeriksaan laporan.",
             zhTitle: "整理並檢查報表",
-            zhDescription: "整理資料並完成報表最終檢查。"
+            zhDescription: "整理資料並進行報表檢查。"
+          },
+          {
+            time: "16.30–16.45",
+            period: "Siang / Sore ｜ 下午 / 傍晚",
+            icon: "🧮",
+            idTitle: "Membuat saldo akhir",
+            idDescription: "Menyusun dan memastikan saldo akhir harian sudah sesuai.",
+            zhTitle: "製作最後餘額",
+            zhDescription: "編製並確認每日最後餘額正確無誤。"
           }
         ],
         outputs: [
           "Komunikasi awal selesai ｜ 初步溝通完成",
-          "Pengajuan & data terverifikasi ｜ 申請與資料已核對",
-          "Data 2Loan & 3Loan terinput ｜ 安家費 與 KTA 資料已輸入",
-          "Laporan akhir dicek ｜ 最終報表已檢查"
+          "Pengajuan & reimbursement dicek ｜ 申請與報銷已核對",
+          "Data KTA & rupiah terinput ｜ KTA 與印尼盾資料已輸入",
+          "Laporan dan saldo akhir selesai ｜ 報表與最後餘額已完成"
         ]
       },
       {
