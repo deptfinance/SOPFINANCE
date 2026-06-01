@@ -208,6 +208,10 @@
       background: linear-gradient(180deg, #ffffff, #f7fbfd);
     }
 
+    .content-grid.wide {
+      grid-template-columns: 1fr;
+    }
+
     .section-head {
       display: flex;
       align-items: end;
@@ -246,12 +250,20 @@
       border-radius: 999px;
     }
 
+    .timeline.no-time::before {
+      display: none;
+    }
+
     .activity-card {
       position: relative;
       display: grid;
       grid-template-columns: 64px minmax(0, 1fr);
       gap: 14px;
       align-items: stretch;
+    }
+
+    .activity-card.no-time {
+      grid-template-columns: 72px minmax(0, 1fr);
     }
 
     .activity-marker {
@@ -264,7 +276,8 @@
     }
 
     .step-number,
-    .break-icon {
+    .break-icon,
+    .task-icon {
       display: grid;
       width: 42px;
       height: 42px;
@@ -275,6 +288,14 @@
       background: var(--blue);
       box-shadow: 0 9px 18px rgba(18, 52, 91, 0.16);
       font-weight: 800;
+    }
+
+    .task-icon {
+      width: 54px;
+      height: 54px;
+      color: var(--blue);
+      background: var(--sky);
+      font-size: 27px;
     }
 
     .break-icon {
@@ -313,6 +334,10 @@
       align-items: center;
       gap: 10px;
       margin-bottom: 11px;
+    }
+
+    .activity-card.no-time .activity-heading {
+      display: none;
     }
 
     .mini-avatar {
@@ -534,10 +559,20 @@
         gap: 10px;
       }
 
+      .activity-card.no-time {
+        grid-template-columns: 58px minmax(0, 1fr);
+      }
+
       .step-number,
       .break-icon {
         width: 36px;
         height: 36px;
+      }
+
+      .task-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 23px;
       }
 
       .time-chip {
@@ -1003,11 +1038,73 @@
           "Laporan akhir dicek ｜ 最終報表已檢查"
         ]
       },
-      createPlaceholderProfile({
+      {
         id: "hrd",
         displayName: "HRD",
-        shortName: "HRD"
-      })
+        shortName: "HRD",
+        title: "SOP / Alur Kerja Harian HRD",
+        focusId: "Data staff, gaji, bonus, iklan lowongan, rekrutmen, BPJS, dan dokumen legal",
+        focusZh: "員工資料、薪資、獎金、招聘廣告、招募、BPJS 與法律文件",
+        hideOutput: true,
+        sectionTitle: "Aktivitas HRD",
+        sectionSubtitle: "Aktivitas dan penjelasan ｜ 活動內容與說明",
+        avatar: {
+          type: "emoji",
+          value: "👥"
+        },
+        activities: [
+          {
+            icon: "🪪",
+            idTitle: "Membuat data staff terbaru perbulan beserta data kehadirannya",
+            idDescription: "Membuat dan memperbarui data staff setiap bulan, termasuk data kehadiran.",
+            zhTitle: "製作每月最新員工資料及出勤資料",
+            zhDescription: "每月製作並更新員工資料，包括出勤紀錄。"
+          },
+          {
+            icon: "🧮",
+            idTitle: "Menghitung gaji",
+            idDescription: "Menghitung gaji karyawan sesuai dengan data dan ketentuan yang berlaku.",
+            zhTitle: "計算薪資",
+            zhDescription: "依據資料及相關規定計算員工薪資。"
+          },
+          {
+            icon: "🎁",
+            idTitle: "Menarik dan mengecek bonus indo dan taiwan",
+            idDescription: "Menarik data bonus untuk karyawan indo dan taiwan, kemudian melakukan pengecekan kebenarannya.",
+            zhTitle: "提取並檢查印尼及台灣員工獎金",
+            zhDescription: "提取印尼及台灣員工獎金資料，並進行正確性檢查。"
+          },
+          {
+            icon: "📣",
+            idTitle: "Membuat iklan staff baru",
+            idDescription: "Membuat materi dan mempublikasikan iklan untuk kebutuhan staff baru.",
+            zhTitle: "製作招募員工廣告",
+            zhDescription: "製作招募新員工的廣告內容，並進行發布。"
+          },
+          {
+            icon: "➕",
+            idTitle: "Merekrut staff baru",
+            idDescription: "Melakukan proses seleksi dan rekrutmen untuk mendapatkan staff baru.",
+            zhTitle: "招募新員工",
+            zhDescription: "進行人員招募與面試，以招募新員工。"
+          },
+          {
+            icon: "🛡️",
+            idTitle: "Menghitung BPJS karyawan",
+            idDescription: "Menghitung iuran BPJS (Kesehatan dan Ketenagakerjaan) karyawan sesuai ketentuan.",
+            zhTitle: "計算員工 BPJS 費用",
+            zhDescription: "依規定計算員工 BPJS（健康與勞工保險）費用。"
+          },
+          {
+            icon: "📁",
+            idTitle: "Mempersiapkan dokumen legal",
+            idDescription: "Menyiapkan dan mengurus dokumen legal yang dibutuhkan karyawan.",
+            zhTitle: "準備法律文件",
+            zhDescription: "準備並辦理員工所需的法律文件。"
+          }
+        ],
+        outputs: []
+      }
     ];
 
     const tabsEl = document.querySelector("#profileTabs");
@@ -1082,16 +1179,22 @@
     function renderProfile(profile) {
       const activities = profile.activities.map((activity, index) => {
         const stepNumber = activity.isBreak ? "" : index + 1 - countBreaksBefore(profile.activities, index);
+        const hasTime = Boolean(activity.time);
+        const markerClass = activity.isBreak ? "break-icon" : (hasTime ? "step-number" : "task-icon");
+        const markerLabel = activity.isBreak ? activity.icon : (hasTime ? stepNumber : activity.icon);
+        const timeChip = hasTime ? `<div class="time-chip">${activity.time}</div>` : "";
+        const miniAvatar = hasTime ? `<div class="mini-avatar" aria-hidden="true">${activity.icon}</div>` : "";
+        const period = activity.period ? `<span class="period">${activity.period}</span>` : "";
         return `
-          <article class="activity-card ${activity.isBreak ? "break" : ""}">
+          <article class="activity-card ${activity.isBreak ? "break" : ""} ${hasTime ? "" : "no-time"}">
             <div class="activity-marker">
-              <div class="${activity.isBreak ? "break-icon" : "step-number"}">${activity.isBreak ? activity.icon : stepNumber}</div>
-              <div class="time-chip">${activity.time}</div>
+              <div class="${markerClass}">${markerLabel}</div>
+              ${timeChip}
             </div>
             <div class="activity-body">
               <div class="activity-heading">
-                <div class="mini-avatar" aria-hidden="true">${activity.icon}</div>
-                <span class="period">${activity.period}</span>
+                ${miniAvatar}
+                ${period}
               </div>
               <div class="bilingual">
                 <div class="lang-block">
@@ -1125,15 +1228,16 @@
           </aside>
         </div>
 
-        <div class="content-grid">
+        <div class="content-grid ${profile.hideOutput ? "wide" : ""}">
           <section>
             <div class="section-head">
-              <h2>Jadwal Kegiatan Harian</h2>
-              <span>Morning to afternoon workflow ｜ 每日工作流程</span>
+              <h2>${profile.sectionTitle || "Jadwal Kegiatan Harian"}</h2>
+              <span>${profile.sectionSubtitle || "Morning to afternoon workflow ｜ 每日工作流程"}</span>
             </div>
-            <div class="timeline">${activities}</div>
+            <div class="timeline ${profile.activities.some((activity) => activity.time) ? "" : "no-time"}">${activities}</div>
           </section>
 
+          ${profile.hideOutput ? "" : `
           <aside class="output-panel">
             <div class="output-header">
               <h2>Output Harian</h2>
@@ -1153,6 +1257,7 @@
               </p>
             ` : ""}
           </aside>
+          `}
         </div>
       `;
     }
