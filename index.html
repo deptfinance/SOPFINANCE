@@ -12,6 +12,7 @@
       --aqua: #2fb7b2;
       --aqua-soft: #e7f8f7;
       --green: #1b7a55;
+      --teal-deep: #087b78;
       --paper: #f8fbfd;
       --white: #ffffff;
       --orange: #f39a35;
@@ -38,6 +39,13 @@
         repeating-linear-gradient(0deg, rgba(47, 183, 178, 0.04) 0 1px, transparent 1px 92px),
         linear-gradient(135deg, rgba(217, 238, 249, 0.95), rgba(231, 248, 247, 0.8) 42%, #ffffff 100%);
       letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      color: var(--white);
+      background: var(--teal-deep);
     }
 
     button,
@@ -68,6 +76,7 @@
       background: rgba(255, 255, 255, 0.82);
       box-shadow: 0 14px 34px rgba(18, 52, 91, 0.1);
       backdrop-filter: blur(14px);
+      isolation: isolate;
     }
 
     .brand {
@@ -113,6 +122,7 @@
       border-radius: 999px;
       padding: 6px;
       background: rgba(217, 238, 249, 0.48);
+      max-width: 100%;
     }
 
     .tab-button {
@@ -124,6 +134,7 @@
       background: transparent;
       cursor: pointer;
       transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, color 160ms ease;
+      white-space: nowrap;
     }
 
     .tab-button:hover {
@@ -139,6 +150,7 @@
     }
 
     .poster {
+      position: relative;
       overflow: hidden;
       border: 1px solid rgba(18, 52, 91, 0.1);
       border-radius: 8px;
@@ -146,6 +158,15 @@
       box-shadow: var(--shadow);
       transform-style: preserve-3d;
       will-change: transform, opacity;
+    }
+
+    .poster::before {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 2;
+      height: 4px;
+      content: "";
+      background: linear-gradient(90deg, var(--aqua), var(--blue), var(--orange));
     }
 
     .poster.flip-out {
@@ -179,6 +200,8 @@
     }
 
     .profile-hero {
+      position: relative;
+      overflow: hidden;
       display: grid;
       grid-template-columns: minmax(0, 1fr) 300px;
       gap: 22px;
@@ -188,7 +211,36 @@
         linear-gradient(130deg, rgba(18, 52, 91, 0.98), rgba(30, 98, 144, 0.96) 52%, rgba(27, 122, 85, 0.92));
     }
 
+    .profile-hero::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.11) 42% 43%, transparent 43% 100%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 72px);
+      opacity: 0.62;
+    }
+
+    .poster[data-profile="delia"] .profile-hero {
+      background: linear-gradient(130deg, #0d3163, #155c9c 55%, #0f7f73);
+    }
+
+    .poster[data-profile="adelia"] .profile-hero {
+      background: linear-gradient(130deg, #103a77, #2478a9 55%, #0b8a80);
+    }
+
+    .poster[data-profile="erika"] .profile-hero {
+      background: linear-gradient(130deg, #102c59, #24639b 52%, #5b3b8f);
+    }
+
+    .poster[data-profile="hrd"] .profile-hero {
+      background: linear-gradient(130deg, #0f3b61, #1f7163 54%, #1b7a55);
+    }
+
     .person-title {
+      position: relative;
+      z-index: 1;
       display: flex;
       gap: 18px;
       align-items: center;
@@ -230,6 +282,8 @@
     }
 
     .focus-box {
+      position: relative;
+      z-index: 1;
       display: grid;
       align-content: center;
       gap: 10px;
@@ -253,6 +307,28 @@
       margin: 0;
       font-size: 16px;
       line-height: 1.45;
+    }
+
+    .profile-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: rgba(255, 255, 255, 0.94);
+      background: rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      backdrop-filter: blur(8px);
     }
 
     .content-grid {
@@ -317,7 +393,20 @@
       grid-template-columns: 64px minmax(0, 1fr);
       gap: 14px;
       align-items: stretch;
+      animation: activityRise 360ms ease both;
+      animation-delay: calc(var(--i, 0) * 34ms);
       transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    @keyframes activityRise {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .activity-card:hover {
@@ -386,6 +475,12 @@
       padding: 16px;
       background: linear-gradient(180deg, #ffffff, #fbfdff);
       box-shadow: 0 10px 24px rgba(18, 52, 91, 0.07);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .activity-card:hover .activity-body {
+      border-color: rgba(47, 183, 178, 0.4);
+      box-shadow: 0 14px 30px rgba(18, 52, 91, 0.1);
     }
 
     .activity-card.break .activity-body {
@@ -478,6 +573,8 @@
       overflow: hidden;
       background: var(--white);
       box-shadow: 0 12px 28px rgba(18, 52, 91, 0.09);
+      position: sticky;
+      top: 104px;
     }
 
     .output-header {
@@ -544,7 +641,7 @@
       border-radius: 8px;
       padding: 16px;
       color: var(--white);
-      background: var(--navy);
+      background: linear-gradient(135deg, var(--navy), #174f77);
       font-size: 15px;
       line-height: 1.5;
       text-align: center;
@@ -563,16 +660,24 @@
 
       .tabs {
         justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        border-radius: 8px;
       }
 
       .content-grid {
         gap: 18px;
       }
+
+      .output-panel {
+        position: static;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .poster.flip-out,
-      .poster.flip-in {
+      .poster.flip-in,
+      .activity-card {
         animation: none;
       }
     }
@@ -1270,7 +1375,7 @@
         const miniAvatar = hasTime ? `<div class="mini-avatar" aria-hidden="true">${activity.icon}</div>` : "";
         const period = activity.period ? `<span class="period">${activity.period}</span>` : "";
         return `
-          <article class="activity-card ${activity.isBreak ? "break" : ""} ${hasTime ? "" : "no-time"}">
+          <article class="activity-card ${activity.isBreak ? "break" : ""} ${hasTime ? "" : "no-time"}" style="--i: ${index}">
             <div class="activity-marker">
               <div class="${markerClass}">${markerLabel}</div>
               ${timeChip}
@@ -1294,6 +1399,12 @@
           </article>
         `;
       }).join("");
+      const scheduledActivities = profile.activities.filter((activity) => activity.time && !activity.isBreak);
+      const taskCount = profile.activities.filter((activity) => !activity.isBreak).length;
+      const firstTime = scheduledActivities[0]?.time.split("–")[0] || "";
+      const lastTime = scheduledActivities[scheduledActivities.length - 1]?.time.split("–")[1] || "";
+      const timeSummary = firstTime && lastTime ? `${firstTime}–${lastTime}` : "Tanpa jam";
+      posterEl.dataset.profile = profile.id;
 
       posterEl.innerHTML = `
         <div class="profile-hero">
@@ -1303,6 +1414,10 @@
             </div>
             <div>
               <h2 class="name-line">${profile.displayName}</h2>
+              <div class="profile-stats" aria-label="Ringkasan profil">
+                <span class="stat-pill">📌 ${taskCount} aktivitas ｜ ${taskCount} 項目</span>
+                <span class="stat-pill">🕒 ${timeSummary}</span>
+              </div>
             </div>
           </div>
           <aside class="focus-box">
