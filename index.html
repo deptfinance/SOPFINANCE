@@ -327,6 +327,56 @@
       backdrop-filter: blur(8px);
     }
 
+    .jobdesk-section {
+      border-bottom: 1px solid rgba(18, 52, 91, 0.1);
+      padding: 26px 28px 28px;
+      background: var(--white);
+    }
+
+    .jobdesk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .jobdesk-item {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      border: 1px solid rgba(27, 122, 85, 0.18);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: linear-gradient(180deg, #ffffff, #f4faf6);
+    }
+
+    .jobdesk-number {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--white);
+      background: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .jobdesk-text {
+      min-width: 0;
+    }
+
+    .jobdesk-text p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.4;
+    }
+
+    .jobdesk-text p[lang="zh-Hant"] {
+      margin-top: 3px;
+      color: var(--muted);
+    }
+
     .content-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 320px;
@@ -1339,6 +1389,15 @@
           </article>
         `;
       }).join("");
+      const jobdesk = profile.activities.filter((activity) => !activity.isBreak).map((activity, index) => `
+        <div class="jobdesk-item">
+          <div class="jobdesk-number">${index + 1}</div>
+          <div class="jobdesk-text">
+            <p>${activity.idTitle}</p>
+            <p lang="zh-Hant">${activity.zhTitle}</p>
+          </div>
+        </div>
+      `).join("");
       const scheduledActivities = profile.activities.filter((activity) => activity.time && !activity.isBreak);
       const taskCount = profile.activities.filter((activity) => !activity.isBreak).length;
       const firstTime = scheduledActivities[0]?.time.split("–")[0] || "";
@@ -1366,6 +1425,16 @@
             <p class="focus-text" lang="zh-Hant">${profile.focusZh}</p>
           </aside>
         </div>
+
+        <section class="jobdesk-section">
+          <div class="section-head">
+            <h2>JOBDESK DAN TANGGUNG JAWAB</h2>
+            <span>Uraian tugas &amp; tanggung jawab harian ｜ 每日工作內容與職責</span>
+          </div>
+          <div class="jobdesk-grid">
+            ${jobdesk}
+          </div>
+        </section>
 
         <div class="content-grid ${profile.hideOutput ? "wide" : ""}">
           <section>
