@@ -973,8 +973,8 @@
           {
             title: "HUTANG USAHA",
             items: [
-              "MEMERIKSA TAGIHAN PEMBAYARAN DARI PIHAK EKSTERNAL YANG DIKIRIMKAN OLEH AKUNTING",
-              "MELAKUKAN PENGINPUTAN KE REKENING SETELAH DOKUMEN SUDAH SESUAI"
+              { id: "MEMERIKSA TAGIHAN PEMBAYARAN DARI PIHAK EKSTERNAL YANG DIKIRIMKAN OLEH AKUNTING", zh: "核對會計部門所傳送的外部廠商應付款項帳單" },
+              { id: "MELAKUKAN PENGINPUTAN KE REKENING SETELAH DOKUMEN SUDAH SESUAI", zh: "確認文件無誤後，進行帳戶輸入作業" }
             ]
           },
           {
@@ -1504,7 +1504,7 @@
       },
       createPlaceholderProfile({
         id: "ika",
-        displayName: "IKA",
+        displayName: "依涵 / IKA",
         shortName: "IKA",
         jobdeskCategories: [
           {
@@ -1526,7 +1526,7 @@
       }),
       createPlaceholderProfile({
         id: "elisa",
-        displayName: "ELISA",
+        displayName: "艾莉莎 / ELISA",
         shortName: "ELISA",
         jobdeskCategories: [
           {
@@ -1718,7 +1718,7 @@
 
         <section class="jobdesk-section">
           <div class="section-head">
-            <h2>JOBDESK DAN TANGGUNG JAWAB</h2>
+            <h2>JOBDESK DAN TANGGUNG JAWAB / 工作職責與職掌</h2>
             <span>Uraian tugas &amp; tanggung jawab harian ｜ 每日工作內容與職責</span>
           </div>
           <div class="${profile.jobdeskCategories ? "category-grid" : "jobdesk-grid"}">
