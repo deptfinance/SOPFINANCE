@@ -377,6 +377,22 @@
       color: var(--muted);
     }
 
+    .jobdesk-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .jobdesk-list[lang="zh-Hant"] {
+      color: var(--muted);
+    }
+
+    .jobdesk-list li + li {
+      margin-top: 5px;
+    }
+
     .category-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -963,6 +979,20 @@
           value: "👩‍💼",
           image: "assets/avatar-dhea.png"
         },
+        jobdesks: [
+          {
+            idTitle: "HUTANG USAHA",
+            idItems: [
+              "MEMERIKSA TAGIHAN PEMBAYARAN DARI PIHAK EKSTERNAL YANG DIKIRIMKAN OLEH AKUNTING",
+              "MELAKUKAN PENGINPUTAN KE REKENING SETELAH MEMASTIKAN DOKUMEN SUDAH SESUAI"
+            ],
+            zhTitle: "應付帳款",
+            zhItems: [
+              "核對會計部門所傳送的外部廠商應付款項帳單",
+              "確認文件無誤後，進行帳戶輸入作業"
+            ]
+          }
+        ],
         activities: [
           {
             time: "08.00–08.45",
@@ -1503,12 +1533,18 @@
           </article>
         `;
       }).join("");
-      const jobdesk = profile.activities.filter((activity) => !activity.isBreak).map((activity, index) => `
+      const jobdeskItems = profile.jobdesks || profile.activities.filter((activity) => !activity.isBreak).map((activity) => ({
+        idTitle: activity.idTitle,
+        zhTitle: activity.zhTitle
+      }));
+      const jobdesk = jobdeskItems.map((item, index) => `
         <div class="jobdesk-item">
           <div class="jobdesk-number">${index + 1}</div>
           <div class="jobdesk-text">
-            <p>${activity.idTitle}</p>
-            <p lang="zh-Hant">${activity.zhTitle}</p>
+            <p>${item.idTitle}</p>
+            ${item.idItems ? `<ul class="jobdesk-list">${item.idItems.map((detail) => `<li>${detail}</li>`).join("")}</ul>` : ""}
+            <p lang="zh-Hant">${item.zhTitle}</p>
+            ${item.zhItems ? `<ul class="jobdesk-list" lang="zh-Hant">${item.zhItems.map((detail) => `<li>${detail}</li>`).join("")}</ul>` : ""}
           </div>
         </div>
       `).join("");
@@ -1542,7 +1578,7 @@
 
         <section class="jobdesk-section">
           <div class="section-head">
-            <h2>JOBDESK DAN TANGGUNG JAWAB</h2>
+            <h2>JOBDESK DAN TANGGUNG JAWAB / 工作職責與職掌</h2>
             <span>Uraian tugas &amp; tanggung jawab harian ｜ 每日工作內容與職責</span>
           </div>
           <div class="jobdesk-grid">
