@@ -422,6 +422,12 @@
       font-weight: 800;
     }
 
+    .category-zh {
+      display: inline-block;
+      margin-top: 3px;
+      color: var(--muted);
+    }
+
     .content-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 320px;
@@ -963,6 +969,24 @@
           value: "👩‍💼",
           image: "assets/avatar-dhea.png"
         },
+        jobdeskCategories: [
+          {
+            title: "HUTANG USAHA",
+            items: [
+              "MEMERIKSA TAGIHAN PEMBAYARAN DARI PIHAK EKSTERNAL YANG DIKIRIMKAN OLEH AKUNTING",
+              "MELAKUKAN PENGINPUTAN KE REKENING SETELAH DOKUMEN SUDAH SESUAI"
+            ]
+          },
+          {
+            title: "PIUTANG USAHA (TAGIH DARI PT)",
+            items: [
+              { id: "MEMBUAT INVOICE TKI PULANG/KABUR YANG DIINFOKAN OLEH TEAM PENAGIHAN DAN MENGIRIMKAN KE PT", zh: "依催收團隊通知，製作返鄉／逃跑移工的發票並傳送至PT" },
+              { id: "MEMBUAT INVOICE FEE JOB TKI PABRIK/KONSTRUKSI DAN MENGIRIMKAN KE TEAM AGENCY", zh: "製作工廠／建築工地移工的職缺介紹費發票並傳送至仲介團隊" },
+              { id: "MELAKUKAN FOLLOW UP PEMBAYARAN ATAS INVOICE YANG SUDAH DITERBITKAN", zh: "對已開立之發票進行付款跟進" },
+              { id: "MENGKONFIRMASI DANA YANG SUDAH DITERIMA", zh: "確認已收到之款項" }
+            ]
+          }
+        ],
         activities: [
           {
             time: "08.00–08.45",
@@ -1465,6 +1489,20 @@
       `).join("");
     }
 
+    function renderCategoryCards(categories) {
+      return categories.map((category) => `
+        <article class="category-card">
+          <h3>${category.title}</h3>
+          <ul class="category-list">
+            ${category.items.map((item) => {
+              if (typeof item === "string") return `<li>${item}</li>`;
+              return `<li>${item.id}<br><span class="category-zh" lang="zh-Hant">${item.zh}</span></li>`;
+            }).join("")}
+          </ul>
+        </article>
+      `).join("");
+    }
+
     function renderProfile(profile) {
       if (profile.categories) {
         renderCategoryProfile(profile);
@@ -1503,15 +1541,17 @@
           </article>
         `;
       }).join("");
-      const jobdesk = profile.activities.filter((activity) => !activity.isBreak).map((activity, index) => `
-        <div class="jobdesk-item">
-          <div class="jobdesk-number">${index + 1}</div>
-          <div class="jobdesk-text">
-            <p>${activity.idTitle}</p>
-            <p lang="zh-Hant">${activity.zhTitle}</p>
+      const jobdesk = profile.jobdeskCategories
+        ? renderCategoryCards(profile.jobdeskCategories)
+        : profile.activities.filter((activity) => !activity.isBreak).map((activity, index) => `
+          <div class="jobdesk-item">
+            <div class="jobdesk-number">${index + 1}</div>
+            <div class="jobdesk-text">
+              <p>${activity.idTitle}</p>
+              <p lang="zh-Hant">${activity.zhTitle}</p>
+            </div>
           </div>
-        </div>
-      `).join("");
+        `).join("");
       const scheduledActivities = profile.activities.filter((activity) => activity.time && !activity.isBreak);
       const taskCount = profile.activities.filter((activity) => !activity.isBreak).length;
       const firstTime = scheduledActivities[0]?.time.split("–")[0] || "";
@@ -1545,7 +1585,7 @@
             <h2>JOBDESK DAN TANGGUNG JAWAB</h2>
             <span>Uraian tugas &amp; tanggung jawab harian ｜ 每日工作內容與職責</span>
           </div>
-          <div class="jobdesk-grid">
+          <div class="${profile.jobdeskCategories ? "category-grid" : "jobdesk-grid"}">
             ${jobdesk}
           </div>
         </section>
@@ -1586,14 +1626,7 @@
 
     function renderCategoryProfile(profile) {
       posterEl.dataset.profile = profile.id;
-      const categoryCards = profile.categories.map((category) => `
-        <article class="category-card">
-          <h3>${category.title}</h3>
-          <ul class="category-list">
-            ${category.items.map((item) => `<li>${item}</li>`).join("")}
-          </ul>
-        </article>
-      `).join("");
+      const categoryCards = renderCategoryCards(profile.categories);
 
       posterEl.innerHTML = `
         <div class="profile-hero">
