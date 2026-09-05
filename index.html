@@ -115,7 +115,7 @@
 
     .tabs {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: flex-end;
       gap: 8px;
       border: 1px solid rgba(18, 52, 91, 0.08);
@@ -123,6 +123,7 @@
       padding: 6px;
       background: rgba(217, 238, 249, 0.48);
       max-width: 100%;
+      overflow-x: auto;
     }
 
     .tab-button {
@@ -757,8 +758,6 @@
 
       .tabs {
         justify-content: flex-start;
-        overflow-x: auto;
-        flex-wrap: nowrap;
         border-radius: 8px;
       }
 
