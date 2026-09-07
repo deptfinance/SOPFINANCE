@@ -203,7 +203,6 @@
       position: relative;
       overflow: hidden;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
       gap: 22px;
       padding: 30px;
       color: var(--white);
@@ -275,34 +274,6 @@
       color: rgba(255, 255, 255, 0.88);
       font-size: clamp(16px, 2vw, 22px);
       line-height: 1.35;
-    }
-
-    .focus-box {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      align-content: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: var(--radius);
-      padding: 16px;
-      background: rgba(255, 255, 255, 0.16);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(10px);
-    }
-
-    .focus-label {
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .focus-text {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.45;
     }
 
     .profile-stats {
@@ -746,7 +717,6 @@
 
     @media (max-width: 980px) {
       .topbar,
-      .profile-hero,
       .content-grid {
         grid-template-columns: 1fr;
       }
@@ -1842,11 +1812,6 @@
               </div>
             </div>
           </div>
-          <aside class="focus-box">
-            <span class="focus-label">Fokus pekerjaan ｜ 工作重點</span>
-            <p class="focus-text">${profile.focusId}</p>
-            <p class="focus-text" lang="zh-Hant">${profile.focusZh}</p>
-          </aside>
         </div>
 
         <section class="jobdesk-section">
