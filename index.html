@@ -428,6 +428,14 @@
       line-height: 1.15;
     }
 
+    .section-head h2 .zh-line {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
     .section-head span {
       color: var(--muted);
       font-size: 13px;
@@ -1816,7 +1824,7 @@
 
         <section class="jobdesk-section">
           <div class="section-head">
-            <h2>JOBDESK DAN TANGGUNG JAWAB / 工作職責與職掌</h2>
+            <h2>Jobdesk dan Tanggung Jawab<br><span class="zh-line" lang="zh-Hant">工作職責與職掌</span></h2>
             <span>Uraian tugas &amp; tanggung jawab harian ｜ 每日工作內容與職責</span>
           </div>
           <div class="${profile.jobdeskCategories ? "category-grid" : "jobdesk-grid"}">
